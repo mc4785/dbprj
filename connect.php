@@ -3,7 +3,7 @@
 <?php
     include("conn.php");
     $id=$_POST['id'];
-    $pw=md5['pw'];
+    $pw=md5($_POST['pw']);
     
     $id=stripslashes($id);
     $pw=stripslashes($pw);
