@@ -2,12 +2,6 @@
 
     session_start();
     $errmsg = array();
-    $userexist = FALSE;
-    $host="localhost"; // Host name 
-    $username="root"; // Mysql username 
-    $password="yourpassword"; // Mysql password 
-    $db_name="communitynetwork"; // Database name 
-    $tbl_name="Users"; // Table name 
 
     $myusername = $_POST["input_username"];
     $mypassword=$_POST["input_password"]; 
@@ -19,14 +13,12 @@
     } elseif( isset($myusername) ) {
 
         // Connect to server and select databse.
-        $connect = mysql_connect("$host", "$username", "$password") or die("cannot connect"); 
-        mysql_select_db("$db_name", $connect) or die("cannot select DB");
+        include("db_connect.inc.php");
 
         // username and password sent from form 
         $mypassword = md5($mypassword);
         $mybirthday=$_POST["input_birthday"]; 
         $mycity=$_POST["input_city"]; 
-
 
         // To protect MySQL injection (more detail about MySQL injection)
         $myusername = stripslashes($myusername);
@@ -38,23 +30,22 @@
         $mybirthday = mysql_real_escape_string($mybirthday);
         $mycity = mysql_real_escape_string($mycity);
 
-        $sql = "SELECT * FROM $tbl_name WHERE uname='$myusername'";
+        $sql = "SELECT * FROM $user_tbl_name WHERE uname='$myusername'";
         $result = mysql_query($sql);
-
+        
         // Mysql_num_row is counting table row
         $count = mysql_num_rows($result);
 
         // If result matched $myusername and $mypassword, table row must be 1 row
         if($count==1) {
-            $userexist = TRUE;
+            array_push($errmsg, "User name has been used.");
         } else {
-            $sql = "INSERT INTO Users VALUES ('$myusername', '$mypassword','$mybirthday', '$mycity', now())";
+            $sql = "INSERT INTO $user_tbl_name VALUES ('$myusername', '$mypassword','$mybirthday', '$mycity', now())";
             $result = mysql_query($sql);
             if($result) {
                 // Register $myusername, $mypassword and redirect to file "login_success.php"
                 $_SESSION['username'] = $myusername;
-                header("location:newsfeed.php");
-                array_push($errmsg, "AAA.");
+                header("location:wall.php");
             } else {
                 array_push($errmsg, "Cannot connect to database.");
             } 
@@ -79,9 +70,6 @@
 <body>
 	<div class="container">
         <?php
-            //if ($userexist) {
-            //    echo "<div class=\"alert alert-danger\">User name has been used.</div>";
-            //}
             foreach ($errmsg as &$err) {
                 echo "<div class=\"alert alert-danger\">$err</div>";
             }
