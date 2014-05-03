@@ -1,6 +1,7 @@
 <?php 
 
     session_start();
+    
     $errmsg = array();
 
     $myusername = $_POST["input_username"];
