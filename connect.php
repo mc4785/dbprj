@@ -1,7 +1,7 @@
 <?php session_start();?>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <?php
-    include("conn.php");
+    include("db_connect.inc.php");
     $id=$_POST['id'];
     $pw=md5($_POST['pw']);
     
@@ -14,7 +14,7 @@
     $sql="select * from Users where uname='$id'";
     $result=mysql_query($sql);
     $row=@mysql_fetch_row($result);
-    if($id!=null&&$pw!=null&&$row[1]==$id&&$row[2]==$pw)
+    if($id!=null && $pw!=null && $row[0]==$id && $row[1]==$pw)
     {
         $_SESSION['uname']=$id;
         echo 'login successfully!';
