@@ -10,7 +10,8 @@
         $row=mysql_fetch_row($result);
         
         echo "<form name=\"form\" method=\"post\" action=\"update_finish.php\">";
-        echo "User Name：<input type=\"text\" name=\"id\" value=\"$row[0]\" />(this attribute can't be revised) <br>";
+        echo "User Name: ".$id."  (this attribute can't be revised)<br>";
+        //echo "User Name：<input type=\"text\" name=\"id\" value=\"$row[0]\" />(this attribute can't be revised) <br>";
         echo "Password：<input type=\"password\" name=\"pw\" value=\"$row[1]\" /> <br>";
         echo "Confirm Password：<input type=\"password\" name=\"pw2\" value=\"$row[1]\" /> <br>";
         echo "Date of Birth：<input type=\"text\" name=\"birthday\" value=\"$row[2]\" /> <br>";
