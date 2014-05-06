@@ -13,7 +13,8 @@
     {
         $id=$_SESSION['uname'];
         
-        $sql="update Users set password=$pw, birth=$birthday, city=$city where uname='$id'";
+        $sql="update Users set password='$pw', birth='$birthday', city='$city' where uname='$id'";
+        echo "$sql";
         if(mysql_query($sql))
         {
             echo 'update successfully!';
