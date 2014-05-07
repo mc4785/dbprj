@@ -14,6 +14,8 @@
                 <li class="active"><a href="#">My Wall</a></li>
                 <li><a href="profile.php">Profile</a></li>
                 <li><a href="newsfeed.php">News Feed</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="about.php">About</a></li>
             </ul>
             <div class="pull-right">
                 <ul class="nav navbar-nav">
