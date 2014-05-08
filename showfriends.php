@@ -1,10 +1,15 @@
 <?php
 $q = $_GET['q'];
-
-include("db_connect.inc.php");
+    $connect = mysqli_connect('localhost','root','root','communitynetwork');
+    //if (!$connect) {
+      //  die('Could not connect: ' . mysqli_error($connect));
+    //}
+    
+    //mysqli_select_db($connect,"communitynetwork");
 $sql="SELECT * FROM Users WHERE uname = '".$q."'";
 $result = mysqli_query($sql);
-
+    //echo $sql;
+    echo $result;
 echo "<table border='1'>
 <tr>
 <th>Friends name</th>
@@ -12,11 +17,11 @@ echo "<table border='1'>
 <th>honetown</th>
 </tr>";
 
-while($row = mysql_fetch_array($result)) {
+while($row = mysqli_fetch_array($result)) {
   echo "<tr>";
-  echo "<td>".$row[0]."</td>";
-  echo "<td>".$row[2]."</td>";
-  echo "<td>".$row[3]."</td>";
+  echo "<td>".$row['uname']."</td>";
+  echo "<td>".$row['birth']."</td>";
+  echo "<td>".$row['city']."</td>";
   echo "</tr>";
 }
 

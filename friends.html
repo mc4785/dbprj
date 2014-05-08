@@ -18,7 +18,7 @@ function showUser(str) {
     }
   }
   xmlhttp.open("GET","showfriends.php?q="+str,true);
-  //alert (str);
+  alert ("showfriends.php?q="+str);
   xmlhttp.send();
 }
 </script>
@@ -28,8 +28,8 @@ function showUser(str) {
 <form>
 <select name="uname" onchange="showUser(this.value)">
 <option value="">Select a friend:</option>
-<option value="1">Jim</option>
-<option value="2">Ken</option>
+<option value="Jim">Jim</option>
+<option value="Ken">Ken</option>
 </select>
 </form>
 <br>
