@@ -20,6 +20,15 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
 
+    <!-- File Upload Generic page styles -->
+    <link rel="stylesheet" href="https://rawgit.com/blueimp/jQuery-File-Upload/master/css/style.css">
+    <!-- blueimp Gallery styles -->
+    <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="https://rawgit.com/blueimp/jQuery-File-Upload/master/css/jquery.fileupload.css">
+    <link rel="stylesheet" href="https://rawgit.com/blueimp/jQuery-File-Upload/master/css/jquery.fileupload-ui.css">
+                        
+
     <style>
         body {
             padding-top: 100px;
@@ -34,12 +43,16 @@
 <body>
     <?php
         include("header.inc.php");
-        include("events.php");
     ?>
-    <div class="container">
+    <!--<div class="container">
         <div class="row">
         <div class="column">
         <div class="col-md-4">
+    </div>-->
+    <div class="col-md-3">
+        <?php
+            include("events.php");
+        ?>
     </div>
     <div class="col-md-7">
         <section>
@@ -53,8 +66,6 @@
             ?>
         </section>
     </div>
-<div class="col-md-5">
-</div>
         </div>
     </div>
 
