@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
 <style>
-ul
-{
+    .event_left
+    {
 list-style-type:none;
 margin:70px -40px;
-}
-p
-{
+    }
+    .event_left li p
+    {
 display:block;
 font-weight:bold;
 color:#FFFFFF;
@@ -18,20 +15,16 @@ text-align:center;
 padding:4px;
 text-decoration:none;
 text-transform:uppercase;
-}
-a:hover,a:active
-{
+    }
+    .event_left li p a:hover,a:active
+    {
 background-color:#7A991A;
-}
+    }
 </style>
-</head>
 
-<body>
-<ul>
-<li><p><a href="#home">Friends</a></p></li>
-<li><p><a href="#news">Activities</a></p></li>
-<li><p><a href="#contact">Location</a></p></li>
-<li><p><a href="#about">Photo</a></p></li>
+<ul class="event_left">
+    <li><p><a href="#home">Friends</a></p></li>
+    <li><p><a href="#news">Activities</a></p></li>
+    <li><p><a href="#contact">Location</a></p></li>
+    <li><p><a href="#about">Photo</a></p></li>
 </ul>
-</body>
-</html>
