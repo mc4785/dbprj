@@ -130,8 +130,7 @@
 
 
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-<!--<script src="https://rawgit.com/blueimp/jQuery-File-Upload/master/js/vendor/jquery.ui.widget.js"></script>-->
-<script src="jQuery-File-Upload-9.5.7/js/vendor/jquery.ui.widget.js"></script>
+<script src="https://rawgit.com/blueimp/jQuery-File-Upload/master/js/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
 <script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
@@ -157,7 +156,7 @@
 <!-- The File Upload validation plugin -->
 <script src="https://rawgit.com/blueimp/jQuery-File-Upload/master/js/jquery.fileupload-validate.js"></script>
 <!-- The File Upload user interface plugin -->
-<script src="jquery.fileupload-ui.js"></script>
+<script src="https://rawgit.com/blueimp/jQuery-File-Upload/master/js/jquery.fileupload-ui.js"></script>
 <!-- The main application script -->
 <script src="fileupload.js"></script>
 
