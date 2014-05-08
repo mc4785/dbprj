@@ -1,7 +1,6 @@
 <?php 
 
     session_start();
-    
     $errmsg = array();
 
     $myusername = $_POST["input_username"];
@@ -42,10 +41,11 @@
             array_push($errmsg, "User name has been used.");
         } else {
             $sql = "INSERT INTO $user_tbl_name VALUES ('$myusername', '$mypassword','$mybirthday', '$mycity', now())";
+            error_log("sql ".$sql);
             $result = mysql_query($sql);
             if($result) {
                 // Register $myusername, $mypassword and redirect to file "login_success.php"
-                $_SESSION['username'] = $myusername;
+                $_SESSION['uname'] = $myusername;
                 header("location:wall.php");
             } else {
                 array_push($errmsg, "Cannot connect to database.");
