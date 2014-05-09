@@ -18,7 +18,7 @@
     {
         $_SESSION['uname']=$id;
         echo 'login successfully!';
-        echo '<meta http-equiv=REFRESH CONTENT=1;url=member.php>';
+        echo '<meta http-equiv=REFRESH CONTENT=1;url=wall.php>';
     }
     else
     {
