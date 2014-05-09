@@ -1,6 +1,6 @@
 <?php
     include("db_connect.inc.php");
-    $sql="call userlikeActivity('$username')";
+    $sql="call likeDiary('$username','$did')";
     $result=mysql_query($sql);
     
     echo "<table border='1'>
@@ -14,5 +14,4 @@
     echo "</tr>";
     }
     echo "</table>";
-    //mysql_query(call likeuserActivity('$username'));
     ?>
