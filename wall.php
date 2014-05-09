@@ -49,7 +49,9 @@
         <div class="column">
         <div class="col-md-4">
     </div>-->
-        <div class="col-md-7">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-6">
         <section>
             <?php
                 include("post.inc.php");
