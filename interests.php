@@ -4,7 +4,7 @@
     
     if($_SESSION['uname']!=null)
     {
-    $sql="call userlikeActivity($_SESSION["uname"],$_GET["actid"])";
+    $sql=("call userlikeActivity(Mary,@id)";select @id);
     $result=mysql_query($sql);
     echo $sql;
     }
