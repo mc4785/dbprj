@@ -1,8 +1,13 @@
+<?php session_start();?>
 <?php
     include("db_connect.inc.php");
-    $sql="call userlikeActivity('$username','$id')";
-    $result=mysql_query($sql);
     
+    if($_SESSION['uname']!=null)
+    {
+    $sql="call userlikeActivity($_SESSION["uname"],$_GET["actid"])";
+    $result=mysql_query($sql);
+    echo $sql;
+    }
     echo "<table border='1'>
     <tr>
     <th>activity id</th>
@@ -10,8 +15,8 @@
     
     while($row=mysql_fetch_assoc($result)){
     echo "<tr>";
-    echo "<td>".$row['$username']."</td>";
-    echo "<td>".$row['$id']."</td>";
+    echo "<td>".$row['$uname']."</td>";
+    echo "<td>".$row['$actid']."</td>";
     echo "</tr>";
     }
     echo "</table>";
