@@ -18,7 +18,7 @@
 			</span>
 			<button type="submit" id="fileupload_submit" class="btn btn-primary start">
 				<i class="glyphicon glyphicon-upload"></i>
-				<span>Start upload</span>
+				<span>Post&nbsp;&nbsp;</span>
 			</button>
 		</div>
 	</div>
