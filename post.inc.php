@@ -9,7 +9,7 @@
 	<div class="row fileupload-buttonbar">
 		<div class="col-lg-7">
 			<!-- The fileinput-button span is used to style the file input field as button -->
-			<span class="btn btn-success fileinput-button">
+			<span id="addfilebtn" class="btn btn-success fileinput-button">
 				<i class="glyphicon glyphicon-plus"></i>
 				<span>Add files...</span>
 				<input type="file" name="files[]" multiple>
@@ -25,7 +25,7 @@
 	<textarea id="micropost_content" name="micropost[content]" placeholder="Give comment ..." style="width:100%"></textarea>			
 
 	<!-- The container for the uploaded files 
-	<div id="files" class="files"></div>-->
+	<div id="files" class="files"></div> -->
 	
 	<!-- The global progress bar -->
 	<div id="progress" class="progress">
@@ -71,12 +71,6 @@
 		<button class="btn btn-primary start" disabled style="display:none">
 			<i class="glyphicon glyphicon-upload"></i>
 			<span>Start</span>
-		</button>
-	{% } %}
-	{% if (!i) { %}
-		<button class="btn btn-warning cancel">
-			<i class="glyphicon glyphicon-ban-circle"></i>
-			<span>Cancel</span>
 		</button>
 	{% } %}
 	</td>
