@@ -64,7 +64,7 @@ if($_SESSION['uname']!=null){
         while ($diary = mysql_fetch_assoc($result)) {
             $diary_img = ($diary['iid'] === NULL) ? "" : sprintf($diary_img_format, $diary['icontent']);
             $diary_note = sprintf($diary_note_format, $diary['ncontent']);
-            $act_info = ($diary['actid'] === NULL) ? "" : sprintf($act_info_format, $diary['actid'], $diary['aname']);
+            $act_info = ($diary['actid'] === NULL) ? "" : sprintf($act_info_format, $diary['aname'], $diary['aname']);
             $loc_info = ($diary['lid'] === NULL) ? "" : sprintf($loc_info_format, $diary['lid'], $diary['lname']);
             $diary_info = ($diary['actid'] === NULL && $diary['lid'] === NULL) ? "" : sprintf($diary_info_format, $act_info, $loc_info);
             $like_cnt = sprintf($like_cnt_format, $diary['did'], $diary['cnt']);
