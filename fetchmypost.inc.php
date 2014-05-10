@@ -13,7 +13,11 @@
     margin-bottom: 50px;
 }
 
-.diary-note, .comment-btn, .like-btn {
+.diary-note{
+    margin: 5px 0px 10px 0px;
+} 
+
+.comment-btn, .like-btn {
     margin-left: 5px;
 }
 
@@ -21,6 +25,12 @@
     position: absolute;
     right: 0;    
 }
+
+.diary-info {
+    margin: 0px;    
+    color: #898f9c;
+}
+
 
 </style>
 
@@ -40,9 +50,12 @@ if($_SESSION['uname']!=null){
     $s = "";  
     $result = mysql_query($sql);
     if ($result) {
-        $diary_item_format = "<div id='d%d' href='#top' class='diary-item'><div class='row box list-group-item'>%s%s</div>%s%s</div>";
+        $diary_item_format = "<div id='d%d' href='#top' class='diary-item'><div class='row box list-group-item'>%s%s%s</div>%s%s</div>";
         $diary_img_format = "<div class='row nopadding'><img class='col-lg-12 img-rounded' src='data:image/jpeg;base64, %s'/></div>";
-        $diary_note_format = "<div class='row diary-note'><dl><dd>%s</dd></dl></div>";
+        $diary_note_format = "<div class='row diary-note'><span>%s</span></div>";
+        $act_info_format = "<span><a href='actpage.php?actid=%s'>%s</a></span>";
+        $loc_info_format = "<span style='color:#898f9c;'>&nbspat&nbsp</span><span><a href='locationpage.php?lid=%s'>%s</a></span>";
+        $diary_info_format = "<div class='row diary-info'>%s%s</div>";
         $comment_btn = "<span><a class='comment-btn'>Comment</a></span>";
         $like_cnt_format = "<span class='like-counts'><span><i class='glyphicon glyphicon-thumbs-up'></i></span><span id='ld%d'>%d</span></span>";
         $diary_tool_format = "<div class='row diary-tool'><span><a class='like-btn' href=\"#\">Like</a></span>%s%s</div>";
@@ -51,11 +64,13 @@ if($_SESSION['uname']!=null){
         while ($diary = mysql_fetch_assoc($result)) {
             $diary_img = ($diary['iid'] === NULL) ? "" : sprintf($diary_img_format, $diary['icontent']);
             $diary_note = sprintf($diary_note_format, $diary['ncontent']);
-
+            $act_info = ($diary['actid'] === NULL) ? "" : sprintf($act_info_format, $diary['actid'], $diary['aname']);
+            $loc_info = ($diary['lid'] === NULL) ? "" : sprintf($loc_info_format, $diary['lid'], $diary['lname']);
+            $diary_info = ($diary['actid'] === NULL && $diary['lid'] === NULL) ? "" : sprintf($diary_info_format, $act_info, $loc_info);
             $like_cnt = sprintf($like_cnt_format, $diary['did'], $diary['cnt']);
             $diary_tool = sprintf($diary_tool_format, $comment_btn, $like_cnt);
             $comment_holder = sprintf($comment_holder_format, $diary['did']);
-            $diary_item = sprintf($diary_item_format, $diary['did'], $diary_img, $diary_note, $diary_tool, $comment_holder);
+            $diary_item = sprintf($diary_item_format, $diary['did'], $diary_img, $diary_note, $diary_info, $diary_tool, $comment_holder);
             $s = $diary_item.$s;
         }
     }
