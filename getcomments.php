@@ -22,9 +22,9 @@ if($_SESSION['uname']!=null){
     $s .= "</ul>";
     //error_log($s);
 
-    $cmt_form = "<form method='post' class='cmt-form'><textarea name='content' style='width:85%; margin: 3px 2px 2px 3px;'></textarea>";
+    $cmt_form = "<div class='row' style='margin-right: 0px; margin-left: 0px;'><form method='post' class='cmt-form'><textarea name='content' style='width:84%; margin: 3px 2px 2px 3px;'></textarea>";
     $cmt_form .= sprintf("<input type='hidden' name='did' value=%d />", $_GET["did"]);
-    $cmt_form .= "<input type='submit' class='btn btn-primary' style='float: right; margin-right:2px;' value='Comment' /></form>";
+    $cmt_form .= "<input type='submit' class='btn btn-primary' style='float: right; margin-right:2px;' value='Comment' /></form></div>";
     //error_log($cmt_form);
 
     $json_arr = array("result"=>"success", "did"=>$_GET["did"], "comments"=>$s, "cmt_form"=>$cmt_form);
