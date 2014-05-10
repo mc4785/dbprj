@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $_SESSION['thispage'] = "wall";
+
     if($_SESSION['uname'] == null) {
         header("location:logout.php");
     }
@@ -19,6 +21,9 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" rel="stylesheet">
     <script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
 
     <!-- File Upload Generic page styles -->
     <link rel="stylesheet" href="https://rawgit.com/blueimp/jQuery-File-Upload/master/css/style.css">
