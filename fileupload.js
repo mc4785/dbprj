@@ -7,7 +7,8 @@ $(function () {
 		// Uncomment the following to send cross-domain cookies:
 		//xhrFields: {withCredentials: true},
 		url: 'fileuploadhandler.php',
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mov|mpg|vob|mp3)$/i,
+        acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|mp3)$/i,
+        maxFileSize: 2000000,
         maxNumberOfFiles: 1,
 	}).on('fileuploadalways', function (e, data) {
         //alert("fff"+JSON.stringify(data));
