@@ -23,7 +23,7 @@ include("db_connect.inc.php");
 if($_SESSION['uname']!=null){
     //error_log("uname=".$_SESSION['uname']);
     $create_diary_sql = "insert into Diary (uname, actid, lid, visible) values ('%s', %s, %s ,'%s')";
-    $check_loc_sql = "select from Location where lid = %s";
+    $check_loc_sql = "select * from Location where lid = '%s'";
     $create_loc_sql = "insert into Location values ('%s','%s','%s','%s')";
     $create_note_sql = "insert into Note (did, ncontent) values (%d, '%s')";
     $create_img_sql = "insert into Image (did, icontent) values (%d, '%s')";
@@ -33,18 +33,25 @@ if($_SESSION['uname']!=null){
         $_POST['loc_id'] = stripslashes($_POST['loc_id']);
         $_POST['loc_id'] = mysql_real_escape_string($_POST['loc_id']);
         $sql = sprintf($check_loc_sql, $_POST['loc_id']);
-
-        $count = mysql_num_rows($result);
-        if($count == 0) {
-            $sql = sprintf($create_loc_sql, $_POST['loc_id'], $_POST['loc_name'], $_POST['loc_lat'], $_POST['loc_lon']);
-            $result = mysql_query($sql);
-            if($result) {
-                $lid = sprintf("'%s'", $_POST['loc_id']);
+        $result = mysql_query($sql);
+        if ($result) {
+            $count = mysql_num_rows($result);
+            if($count == 0) {
+                $sql = sprintf($create_loc_sql, $_POST['loc_id'], $_POST['loc_name'], $_POST['loc_lat'], $_POST['loc_lon']);
+                $result = mysql_query($sql);
+                if($result) {
+                    $lid = sprintf("'%s'", $_POST['loc_id']);
+                } else {
+                    error_log("insert location error: ".$sql);
+                    error_log(mysql_error());
+                    $lid = "NULL";
+                }
             } else {
-                error_log("insert location error: ".$sql);
-                error_log(mysql_error());
-                $lid = "NULL";
+                $lid = sprintf("'%s'", $_POST['loc_id']);
             }
+        } else {
+            error_log("search loc error;".$sql);  
+            error_log(mysql_error());  
         }
     } else {
         $lid = "NULL";    
@@ -62,7 +69,7 @@ if($_SESSION['uname']!=null){
 
 
     $sql = sprintf($create_diary_sql, $_SESSION['uname'], $act_id, $lid, $_POST['dv']);
-    //error_log("diary SQL: ".$sql);
+    error_log("diary SQL: ".$sql);
     $result = mysql_query($sql);
     if($result) {
         $did = mysql_insert_id();
