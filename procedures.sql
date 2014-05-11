@@ -396,6 +396,73 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `searchDiaryByLocation`(
+                              IN username VARCHAR(40),
+                              IN locationid VARCHAR(160))
+BEGIN
+select * from
+    (select * from Location where lid=locationid) as L,
+    (select Diary.*, nid, ncontent, iid, icontent, aid, acontent, vid, vcontent, lname, longitude, latitude from
+        Diary
+        left join Note on Diary.did=Note.did
+        left join Image on Diary.did=Image.did
+        left join Audio on Diary.did=Audio.did
+        left join Video on Diary.did=Video.did
+        left join Location on Diary.lid= Location.lid
+        ORDER BY did DESC
+    ) as D
+    where
+    L.lid=D.lid and
+    (D.uname="Tim" or
+     D.visible='everyone' or
+     (D.uname in (
+                  select * from ((select funame from Friends where uname="Tim" and accept="yes")
+                                 union
+                                 (select uname from Friends where funame="Tim" and accept="yes")
+                                 ) as F
+                  )
+      ) or
+     (D.visible='fof' and
+      D.uname in (
+                  SELECT * FROM (
+                                 (SELECT F2.funame FROM Friends AS F1
+                                  JOIN Friends AS F2 ON F1.funame=F2.uname
+                                  WHERE F1.uname="Tim" AND F1.accept="yes"
+                                  AND F2.accept="yes")
+                                 UNION
+                                 (SELECT F2.uname FROM Friends AS F1
+                                  JOIN Friends AS F2 ON F1.funame=F2.funame
+                                  WHERE F1.uname="Tim" AND F1.accept="yes"
+                                  AND F2.accept="yes")
+                                 UNION
+                                 (SELECT F2.funame FROM Friends AS F1
+                                  JOIN Friends AS F2 ON F1.uname=F2.uname
+                                  WHERE F1.funame="Tim" AND F1.accept="yes"
+                                  AND F2.accept="yes")
+                                 UNION
+                                 (SELECT F2.uname FROM Friends AS F1 
+                                  join Friends AS F2 ON F1.uname=F2.funame 
+                                  WHERE F1.funame="Tim" AND F1.accept="yes"
+                                  AND F2.accept="yes")
+                                 ) AS F3 
+                 )
+     )
+     );
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `userlikeActivity`(
 in username varchar(40),
 out id int(16))
@@ -431,4 +498,4 @@ DELIMITER ;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-05-10 17:02:22
+-- Dump completed on 2014-05-10 20:02:40
