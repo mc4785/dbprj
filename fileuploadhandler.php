@@ -2,8 +2,6 @@
 session_start();
 
 error_reporting(E_ALL | E_STRICT);
-//require('server/php/UploadHandler.php');
-//$upload_handler = new UploadHandler();
 
 $re = print_r($_FILES, TRUE);
 error_log( $re);
@@ -27,9 +25,12 @@ if($_SESSION['uname']!=null){
     $create_loc_sql = "insert into Location values ('%s','%s','%s','%s')";
     $create_note_sql = "insert into Note (did, ncontent) values (%d, '%s')";
     $create_img_sql = "insert into Image (did, icontent) values (%d, '%s')";
+    $create_aud_sql = "insert into Audio (did, acontent) values (%d, '%s')";
+    $create_vid_sql = "insert into Video (did, vcontent) values (%d, '%s')";
+    $delete_diary_sql = "delete from Diary where did=%d";
 
     // check location input
-    if (isset($_POST['loc_id'])) {
+    if (!empty($_POST['loc_id'])) {
         $_POST['loc_id'] = stripslashes($_POST['loc_id']);
         $_POST['loc_id'] = mysql_real_escape_string($_POST['loc_id']);
         $sql = sprintf($check_loc_sql, $_POST['loc_id']);
@@ -67,17 +68,16 @@ if($_SESSION['uname']!=null){
         $act_id = "NULL";    
     }
 
-
+    // create diary
     $sql = sprintf($create_diary_sql, $_SESSION['uname'], $act_id, $lid, $_POST['dv']);
-    error_log("diary SQL: ".$sql);
+    //error_log("diary SQL: ".$sql);
     $result = mysql_query($sql);
     if($result) {
         $did = mysql_insert_id();
-        //error_log("did=$did");
-        //error_log("tmp_name=$_FILES['files']['tmp_name'][0]");
         
         // To protect MySQL injection (more detail about MySQL injection)
         $mycomment = stripslashes($_POST['micropost']['content']);
+        $mycomment = mysql_real_escape_string($mycomment);
         $sql = sprintf($create_note_sql, $did, $mycomment);
         $result = mysql_query($sql);
         if($result) {
@@ -85,17 +85,43 @@ if($_SESSION['uname']!=null){
         } else {
             error_log("note SQL FAIL ");
             error_log(mysql_error());
+            $sql = sprintf($delete_diary_sql,$did);
+            $result = mysql_query($sql);
+            error_log("deleting diary ".$did);
         }
             
         $im = file_get_contents($_FILES['files']['tmp_name'][0]);
         $imdata = base64_encode($im);
-        $sql = sprintf($create_img_sql, $did, $imdata);
-        //error_log("image SQL: ".$sql);
+        error_log($_FILES['files']['tmp_name'][0]);
+        error_log($imdata);
+        
+        // check media type
+        $filename = $_FILES['files']['name'][0];
+        $filetype = strtolower(end(explode('.',$filename)));
+        if (in_array($filetype, array("gif", "jpeg", "jpg", "png"))) {
+            $sql = sprintf($create_img_sql, $did, $imdata);
+        } elseif (in_array($filetype, array("mp4"))) {
+            $sql = sprintf($create_vid_sql, $did, $imdata);
+        } elseif (in_array($filetype, array("mp3"))) {
+            $sql = sprintf($create_aud_sql, $did, $imdata);
+            error_log($sql);
+        } else {
+            error_log("Upload invalid file type: ".$filetype);    
+            error_log("Upload invalid file name: ".$_FILES['files']['name'][0]);    
+            $sql = sprintf($delete_diary_sql,$did);
+            $result = mysql_query($sql);
+            error_log("deleting diary ".$did);
+        }
+        
         $result = mysql_query($sql);
         if($result) {
             //error_log("image SQL SUCCESS ");  
         } else {
-            error_log("image SQL FAIL ");
+            error_log("media SQL FAIL: ".$sql);
+            error_log(mysql_error());
+            $sql = sprintf($delete_diary_sql,$did);
+            $result = mysql_query($sql);
+            error_log("deleting diary ".$did);
             error_log(mysql_error());
         }
     } else {
