@@ -17,7 +17,7 @@ float:left;
 a:link,a:visited
 {
 display:block;
-width:320px;
+width:315px;
 font-weight:bold;
 color:#FFFFFF;
 background-color:#98bf21;
@@ -37,10 +37,9 @@ background-color:#7A991A;
 <body>
 <h2><p class="oblique">My Profile</p></h2>
 <ul>
-<li><a href="update.php">Home</a></li>
-<li><a href="friends.html">Friends</a></li>
-<li><a href="interests.php">Interests</a></li>
-<li><a href="#about">About</a></li>
+<li><a href="wall.php">Home</a></li>
+<li><a href="friends.php">Friends</a></li>
+<li><a href="about.php">About</a></li>
 </ul>
 </body>
 </html>
