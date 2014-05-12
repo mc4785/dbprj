@@ -1,27 +1,26 @@
-<!DOCTYPE html>
+<?php session_start();?>
 <html>
 <head>
-<link type="text/css" rel="stylesheet" href="./static/main.css" />
 <title><?php echo "{$_GET['uname']}"; ?></title>
 </head>
 <body>
-    <form action='wall.php'>
+    <form action='profile.php'>
 	    <input type="submit" value="Home">
 	</form>
 	<?php
-		session_start();
-
+	
 		include("db_connect.inc.php");
-
-		$query = "SELECT * from Users where uname = {$_GET['uname']}";
-
+        $a=$_GET['uname'];
+		$query = "SELECT * from Users where uname = '$a'";
+        //$query = "SELECT * from Users where uname = {$_GET['uname']}";
+        
 		$result = mysql_query($query, $connect) or die("Failed");
 
 		$row = mysql_fetch_array($result);
         if ($_SESSION['uname']==null) {
             header("location: logout.php");
 		} else {
-			include("feeds.php");
+			//include("feeds.php");
 
 			$query = "select * from Users where uname = '{$_GET['uname']}'";
 			$result = @ mysql_query($query, $connect) or

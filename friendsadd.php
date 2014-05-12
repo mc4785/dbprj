@@ -1,19 +1,31 @@
-<!DOCTYPE html>
+<?php session_start();?>
 <html>
 <head>
-<link type="text/css" rel="stylesheet" href="./static/main.css" />
 <title>Adding new friends</title>
+<script>
+	function add(name){
+		if (window.XMLHttpRequest) {
+		    // code for IE7+, Firefox, Chrome, Opera, Safari
+		    xmlhttp=new XMLHttpRequest();
+		  } else { // code for IE6, IE5
+		    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  }
+		  xmlhttp.open("GET","friendRequest.php?reqname="+name,true);
+		  xmlhttp.send();
+	}
+	
+</script>
 </head>
 <body>
 	<?php
-		session_start();
+		
 		if ($_SESSION['uname']==null) {
 			header("location: logout.php");
 		} else {
 
 			include("db_connect.inc.php");
 
-			include("feeds.php");
+			//include("feeds.php");
 
 			echo "<form method='post'>";
 			echo "<label>User Name</label>
@@ -45,8 +57,9 @@
 					if(!empty($row))
 					{
 					echo "<li>{$row['uname']} ";
+/* 					echo "<a href='javascript:void(0)' onclick='add('{$row['uname']}');'>fn is called</a>"; */
 					echo "<a href='friendRequest.php?reqname={$row['uname']}'>
-						add</a>";
+						add1</a>"; 
 					
 					echo "</li>";
 					}
