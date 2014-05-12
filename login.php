@@ -1,7 +1,8 @@
 <html>
-<body>
+<body style= "background-image:url('view.png')">
 <div align="center">
 <h1>Welcome to Wildbook.com!</h1><br>
+<h2>Wild your life!</h2><br>
 <div align="right">
 <form action="signup.php" method="post">
 <input type="submit" value="Sign up">
